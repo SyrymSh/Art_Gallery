@@ -1,10 +1,11 @@
 package Art_gallery;
+import java.util.Objects;
 
 public class Artwork {
-    public String title;
-    public String artist;
-    public String year;
-    public double price;
+    private String title;
+    private String artist;
+    private String year;
+    private double price;
 
     // Constructor
     public Artwork(String title, String artist, String year, double price) {
@@ -49,14 +50,22 @@ public class Artwork {
 
     // Artwork Details
     public void artworkDetails() {
-        System.out.println("Title: " + title);
-        System.out.println("Artist: " + artist);
-        System.out.println("Year: " + year);
-        System.out.println("Price: " + price);
+        System.out.println(this);
     }
 
-    // Compare Two Artworks (by price)
-    public boolean equals(Artwork other) {
-        return this.price == other.price;
+    // Override equals()
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Artwork artwork = (Artwork) obj;
+        return Double.compare(artwork.price, price) == 0 && title.equals(artwork.title) && year.equals(artwork.year);
+    }
+
+    // Override hashCode()
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, year, price);
     }
 }
+
